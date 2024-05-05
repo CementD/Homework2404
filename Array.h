@@ -1,68 +1,93 @@
 #include <iostream>
 
-template <typename T>
+template <class T>
 class Array {
 private:
     T* data;
     int size;
+    int capacity;
+    int grow;
 
-    void resize(int newSize) {
-        T* newData = new T[newSize];
-        for (int i = 0; i < newSize; i++) {
-            if (i < size) {
-                newData[i] = data[i];
-            }
-            else {
-                newData[i] = T();
-            }
-        }
-        delete[] data;
-        data = newData;
-    }
-
+    void resize(int newSize);
 
 public:
-    Array(int initialSize = 0, int initialCapacity = 10, int growFactor = 1) : size(initialSize) {
-        data = new T[initialCapacity];
-    }
+    Array(int initialSize = 0, int initialCapacity = 10, int growFactor = 1);
 
-    ~Array() {
-        delete[] data;
-    }
+    ~Array();
 
-    T& operator[](int index) {
-        return data[index];
-    }
+    T& operator[](int index);
 
-    void Add(const T& element) {
-        if (size >= capacity()) {
-            resize(capacity() + grow());
-        }
-        data[size++] = element;
-    }
+    void Add(const T& element);
 
-    int GetSize() const {
-        return size;
-    }
+    int GetSize() const;
 
-    void SetSize(int newSize, int newGrow = 1) {
-        if (newSize < size) {
-            size = newSize;
-        }
-        else {
-            resize(newSize + newGrow);
-            size = newSize;
-        }
-    }
+    void SetSize(int newSize, int newGrow = 1);
 
-    int capacity() const {
-        return size;
-    }
+    int Capacity() const;
 
-    int grow() const {
-        return 1;
-    }
+    int Grow() const;
+
+    void Print() const;
 };
+
+template<class T>
+Array<T>::Array(int initialSize, int initialCapacity, int growFactor)
+    : size(initialSize), capacity(initialCapacity), grow(growFactor) {
+    data = new T[initialCapacity];
+}
+
+template<class T>
+Array<T>::~Array() {
+    delete[] data;
+}
+
+template<class T>
+T& Array<T>::operator[](int index) {
+    return data[index];
+}
+
+template<class T>
+void Array<T>::Add(const T& element) {
+    if (size >= capacity) {
+        resize(capacity + grow);
+    }
+    data[size++] = element;
+}
+
+template<class T>
+int Array<T>::GetSize() const {
+    return size;
+}
+
+template<class T>
+void Array<T>::SetSize(int newSize, int newGrow) {
+    if (newSize < size) {
+        size = newSize;
+    }
+    else {
+        resize(newSize + newGrow);
+        size = newSize;
+    }
+}
+
+template<class T>
+int Array<T>::Capacity() const {
+    return capacity;
+}
+
+template<class T>
+int Array<T>::Grow() const {
+    return grow;
+}
+
+template<class T>
+void Array<T>::Print() const {
+    cout << "Array: ";
+    for (int i = 0; i < size; i++) {
+        cout << data[i] << " ";
+    }
+    cout << endl;
+}
 
 
 

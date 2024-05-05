@@ -7,25 +7,15 @@ int main() {
     arr.Add(1);
     arr.Add(2);
     arr.Add(3);
-    arr.Add(4);
 
-    cout << "Array size: " << arr.GetSize() << endl;
+    cout << "Size: " << arr.GetSize() << endl;
+    arr.Print();
 
-    for (int i = 0; i < arr.GetSize(); i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
+    arr.SetSize(5, 5);
 
-    arr.SetSize(8, 8);
-
-    cout << "Array size: " << arr.GetSize() << endl;
-
-    for (int i = 0; i < arr.GetSize(); i++) {
-        cout << arr[i] << " ";
-    }
-    cout << endl;
+    cout << "Size after SetSize: " << arr.GetSize() << endl;
+    arr.Print();
 
     return 0;
 }
-
 
